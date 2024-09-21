@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Imagen cargada</title>
+    <style>
+        .image-container {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 50px;
+        }
+        img {
+            max-width: 45%;
+            height: auto;
+        }
+        #myChart {
+            max-width: 800px;
+            margin: auto;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="image-container">
+        <div>
+            <h4>Imagen original:</h4>
+            <img src="{{ url_for('static', filename='images/uploaded_image.jpg') }}" alt="Imagen original">
+        </div>
+        <div>
+            <h4>Imagen filtrada:</h4>
+            <img src="{{ url_for('static', filename='images/Resultado.jpg') }}" alt="Imagen filtrada">
+        </div>
+    </div>
+    <canvas id="myChart"></canvas>
+</body>
+<script>
+    $.ajax({
+    type: "GET",
+    url: "/static/tiempo_ejecucion.json",
+    success: function(response) {
+        var tiempo_ejecucion = response.tiempo_ejecucion;
+        // Actualiza la gráfica con el nuevo tiempo de ejecución
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Tiempo de ejecución'],
+                datasets: [{
+                    label: '# de Tiempo de ejecución',
+                    data: [tiempo_ejecucion],  // Aquí va el tiempo de ejecución
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+});
+</script>
+</html>

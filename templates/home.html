@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(to right, #007BFF, #00FFFF);
+        }
+        .form-container {
+            display: flex;
+            justify-content: space-around;
+            width: 80%;
+        }
+        form {
+            width: 45%;
+            border: 1px solid #000;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.15);
+            background-color: #fff;
+        }
+        input[type=submit], input[type=file], select, input[type=number] {
+            border-radius: 5px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+        }
+        input[type=submit]:hover, input[type=file]:hover, select:hover, input[type=number]:hover {
+            background-color: #0056b3;
+        }
+        input[type=number]::placeholder {
+            color: #fff;
+        }
+        h1 {
+            text-align: center;
+        }
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: linear-gradient(to right, #007BFF, #00FFFF);
+            padding: 10px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h2>Por: Leonardo Crespo, Carlos Saico</h2>
+</div>
+
+
+<section class="form-container">
+ <!-- Para cargar desde un archivo local -->
+<h1>Mediante PATH</h1>
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file">
+    <select name="opcion">
+        <option value="1">GAUSS</option>
+        <option value="2">SAL PIMIENTA</option>
+        <option value="3">SOBEL</option>
+    </select>
+    <input type="number" name="tamaño" min="1" id="tamaño" placeholder="Tamaño de la máscara">
+    <input type="submit" value="Cargar">
+</form>
+
+
+<!-- Para cargar desde una URL -->
+<h1>Mediante URL</h1>
+<form action="/upload_url" method="post" enctype="multipart/form-data">
+    <input type="text" name="url">
+     <select name="opcion">
+        <option value="1">GAUSS</option>
+        <option value="2">SAL PIMIENTA</option>
+        <option value="3">SOBEL</option>
+    </select>
+    <input type="number" name="tamaño" min="1" id="tamaño" placeholder="Tamaño de la máscara">
+    <input type="submit" value="Cargar">
+</form>
+
+</section>
+</body>
+<script>
+document.getElementById('tamaño').addEventListener('input', function (e) {
+    var tamaño = e.target.value;
+    if (tamaño % 2 === 0) {
+        alert('Por favor, ingresa un número impar');
+        e.target.value = '';
+    }
+});
+</script>
+</html>
